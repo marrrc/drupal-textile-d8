@@ -1,0 +1,36 @@
+<?php
+
+/**
+* Implements hook_requirements().
+*
+* Alert administrator users that they need to download the classTextile.php if they
+* haven't done that already.
+*/
+function textile_requirements($phase) {
+  $requirements = array();
+
+  if ($phase == 'runtime') {
+    $library = libraries_detect('textile');
+
+    $error_type = isset($library['error']) ? drupal_ucfirst($library['error']) : '';
+    $error_message = isset($library['error message']) ? $library['error message'] : '';
+
+    if (empty($library['installed'])) {
+      $requirements['textile'] = array(
+        'title' => t('Textile'),
+        'value' => t('Not found'),
+        'severity' => REQUIREMENT_ERROR,
+        'description' => t('!error You need to download !textile, extract the archive and place the directory in the %path directory on your server.', array('!error' => $error_message, '!textile' => l(t('Textile'), $library['download url']), '%path' => 'libraries')),
+      );
+    }
+    else {
+      $requirements['textile'] = array(
+        'title' => t('Textile'),
+        'severity' => REQUIREMENT_OK,
+        'value' => $library['version'],
+      );
+    }
+  }
+
+  return $requirements;
+}

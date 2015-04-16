@@ -1,0 +1,19 @@
+{
+  "name": "drupal/textile",
+  "description": "Textile D8 module",
+  "type": "drupal-module",
+  "homepage": "https://github.com/medom/drupal-textile-d8",
+  "authors": [
+    {
+      "name": "Marc Eschrich",
+      "email": "marc@dom.de",
+      "homepage": "https://github.com/medom",
+      "role": "Maintainer"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/medom/drupal-textile-d8/issues"
+  },
+  "minimum-stability": "dev",
+  "require": { }
+}

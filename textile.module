@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * @file
+ * The textile module allows input of Textile shorthand.
+ */
+
+/**
+ * Implements hook_libraries_info().
+ */
+function textile_libraries_info() {
+  $libraries['textile'] = array(
+    'name' => 'textile',
+    'vendor url' => 'https://github.com/zdia/textile',
+    'download url' => 'https://github.com/zdia/textile/archive/master.zip',
+    'path' => 'zdia',
+    'version arguments' => array(
+      'file' => 'Readme.md',
+      'pattern' => '@(?i:Textile) ([0-9\.]+)@',
+      'lines' => 5,
+    ),
+    'files' => array(
+      'php' => array(
+        'classTextile.php',
+      ),
+    ),
+  );
+
+  return $libraries;
+}
+
+ function _textile_match_process($matches) {
+  static $textile = NULL;
+
+  if (is_null($textile)) {
+    if (!empty($matches)) {
+      libraries_load('textile');
+    }
+
+    $textile = new Textile();
+    // $textile->hu is the string that preceeds all relative URLs.
+    $url = Drupal::url('<front>');
+
+    $textile->hu = (substr($url, -1) == '/' ? $url : "$url/");
+  }
+
+  return is_null($textile) ? $matches[1] : $textile->TextileThis($matches[1]);
+}
