@@ -6,8 +6,7 @@ dependencies:
   - libraries
   - filter
 
-# Information added by drupal.org packaging script on 2011-10-21
-version: 8.x-1.0-a1
+version: 8.x-1.0-a2
 core: 8.x
 project: textile
-datestamp: 1425484279
+datestamp: 1429541761
