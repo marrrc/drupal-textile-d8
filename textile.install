@@ -11,14 +11,16 @@ use Drupal\Core\Url;
 function textile_requirements($phase) {
   $requirements = array();
 
-  $url = Url::fromUri($library['download url']);
-  $link = \Drupal::l(t('Textile'), $url);
-
   if ($phase == 'runtime') {
     $library = libraries_detect('textile');
 
     $error_type = isset($library['error']) ? textile_mb_ucfirst($library['error']) : '';
     $error_message = isset($library['error message']) ? $library['error message'] : '';
+
+    $dl_url = isset($library['download url']) && !empty($library['download url']) ? $library['download url'] : '/';
+
+    $url = Url::fromUri($dl_url);
+    $link = \Drupal::l(t('Textile'), $url);
 
     if (empty($library['installed'])) {
       $requirements['textile'] = array(
