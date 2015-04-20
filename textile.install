@@ -1,5 +1,7 @@
 <?php
 
+use Drupal\Core\Url;
+
 /**
 * Implements hook_requirements().
 *
@@ -8,6 +10,9 @@
 */
 function textile_requirements($phase) {
   $requirements = array();
+
+  $url = Url::fromUri($library['download url']);
+  $link = \Drupal::l(t('Textile'), $url);
 
   if ($phase == 'runtime') {
     $library = libraries_detect('textile');
@@ -20,7 +25,7 @@ function textile_requirements($phase) {
         'title' => t('Textile'),
         'value' => t('Not found'),
         'severity' => REQUIREMENT_ERROR,
-        'description' => t('!error You need to download !textile, extract the archive and place the directory in the %path directory on your server.', array('!error' => $error_message, '!textile' => l(t('Textile'), $library['download url']), '%path' => 'libraries')),
+        'description' => t('!error You need to download !textile, extract the archive and place the directory in the %path directory on your server.', array('!error' => $error_message, '!textile' => $link, '%path' => 'libraries')),
       );
     }
     else {
