@@ -13,7 +13,6 @@ function textile_libraries_info() {
     'name' => 'textile',
     'vendor url' => 'https://github.com/zdia/textile',
     'download url' => 'https://github.com/zdia/textile/archive/master.zip',
-    'path' => 'zdia',
     'version arguments' => array(
       'file' => 'classTextile.php',
       'pattern' => '@(?i:protected \$ver \= \')([0-9\.]+)@',
